@@ -49,6 +49,7 @@ Contacts: [SearchStudies](https://searchstudies.org)
 
 Research data: [OSF](https://osf.io/jyv9r/)
 
+Original rule-based-SEO-Classifier from SEO-Effekt 1: [https://github.com/sebsuenkler/seoeffekt_edu](https://github.com/sebsuenkler/seoeffekt_edu)
 
 # SEO Score Classifier Documentation
 
