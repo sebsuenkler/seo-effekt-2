@@ -26,11 +26,7 @@ def create_webdriver():
             )
     return driver
 
-def read_config_file(filename):
-    currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    parentdir = os.path.dirname(currentdir)
-    with open(os.path.join(parentdir, filename), 'r') as f:
-        return json.load(f)
+
 
 def save_robot_txt(main):
     """

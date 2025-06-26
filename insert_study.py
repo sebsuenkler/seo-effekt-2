@@ -3,8 +3,7 @@ import json
 import sqlite3
 import datetime
 
-# 'db.py' has connect_to_db() and close_connection_to_db() functions
-from db import *
+from libs.db import *
 
 
 def adapt_date_iso(val):
@@ -24,7 +23,7 @@ today = datetime.date.today()
 search_engines = []
 
 try:
-    with open('scraper.json') as json_file:
+    with open('config/scraper.json') as json_file:
         search_engines_json = json.load(json_file)
 except FileNotFoundError:
     print("Error: scraper.json not found. Please make sure the file exists.")
@@ -67,7 +66,7 @@ cursor = connection.cursor()
 
 try:
     # First, check if a study with this name already exists.
-    existing_study = cursor.execute("SELECT name FROM STUDY WHERE name =?", (name,)).fetchone()
+    existing_study = cursor.execute("SELECT name FROM study WHERE name =?", (name,)).fetchone()
 
     if existing_study:
         print(f"Error: A study named '{name}' already exists. No changes were made.")
@@ -76,7 +75,7 @@ try:
         print(f"Creating new study '{name}'...")
 
         # Insert the study record
-        sql = 'INSERT INTO STUDY(name, description, date) values(?,?,?)'
+        sql = 'INSERT INTO study(name, description, date) values(?,?,?)'
         data = (name, description, today)
         cursor.execute(sql, data)
         study_id = cursor.lastrowid

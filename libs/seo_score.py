@@ -9,12 +9,17 @@ from datetime import datetime
 from lxml import html
 import json
 
-# Import path setup from original script
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-sys.path.append(currentdir + "/libs/")
+
+current_path = os.path.abspath(__file__)
+script_path = os.path.dirname(current_path)
+project_path = os.path.dirname(script_path)
+
+if project_path not in sys.path:
+    sys.path.insert(0, project_path) 
+
 
 # Import everything from the indicators module
-from indicators import *
+from libs.indicators import *
 
 class SEOScorer:
     """Handles SEO scoring logic"""

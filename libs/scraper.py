@@ -1,14 +1,15 @@
 
 import os
-import inspect
+import sys
 
-from pathlib import Path
+current_path = os.path.abspath(__file__)
+script_path = os.path.dirname(current_path)
+project_path = os.path.dirname(script_path)
 
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+if project_path not in sys.path:
+    sys.path.insert(0, project_path) 
 
-parentdir = os.path.dirname(currentdir)
-
-ext_path = currentdir+"/i_care_about_cookies_unpacked"
+ext_path = project_path+"/i_care_about_cookies_unpacked"
 
 import datetime
 
@@ -16,17 +17,28 @@ import json
 
 import importlib
 
-from lib.sources import get_real_url
 
-from db import *
-from log import *
+current_path = os.path.abspath(__file__)
+script_path = os.path.dirname(current_path)
+project_path = os.path.dirname(script_path)
+
+if project_path not in sys.path:
+    sys.path.insert(0, project_path) 
+
+
+from libs.sources import get_real_url
+
+from libs.db import *
+from libs.log import *
 
 scraper_id = 0
 reset_id = 0
 
+import json
+
 connection = connect_to_db()
 cursor = connection.cursor()
-data = cursor.execute("SELECT id FROM SCRAPER WHERE progress =? ORDER BY RANDOM() LIMIT 1", (-1,))
+data = cursor.execute("SELECT id FROM scraper WHERE progress =? ORDER BY RANDOM() LIMIT 1", (-1,))
 connection.commit()
 for row in data:
     reset_id = row[0]
@@ -37,7 +49,7 @@ if reset_id == 0:
 
     connection = connect_to_db()
     cursor = connection.cursor()
-    data = cursor.execute("SELECT * FROM SCRAPER WHERE progress =? ORDER BY RANDOM() LIMIT 1", (0,))
+    data = cursor.execute("SELECT * FROM scraper WHERE progress =? ORDER BY RANDOM() LIMIT 1", (0,))
     connection.commit()
 
     for row in data:
@@ -57,7 +69,7 @@ if reset_id == 0:
 
         connection = connect_to_db()
         cursor = connection.cursor()
-        cursor.execute("UPDATE SCRAPER SET progress =? WHERE id =?", (2,scraper_id,))
+        cursor.execute("UPDATE scraper SET progress =? WHERE id =?", (2,scraper_id,))
         connection.commit()
         close_connection_to_db(connection)
 
@@ -75,22 +87,22 @@ if reset_id == 0:
 
         import json
 
-        with open('scraper.json') as json_file:
+        with open(project_path+'/config/scraper.json') as json_file:
             search_engines_json = json.load(json_file)
 
         try:
 
-            scraper_lib = search_engines_json[search_engine]['scraper_file']
+            scraper_lib = search_engines_json[search_engine]['scraper_file'] 
             limit = search_engines_json[search_engine]['limit']
-            scraper = importlib.import_module(scraper_lib)
-
+            module_path_for_import = f"scrapers.{scraper_lib}"
+            scraper = importlib.import_module(module_path_for_import)
 
             search_results = scraper.run(query, limit)
 
             if search_results == -1:
                 connection = connect_to_db()
                 cursor = connection.cursor()
-                cursor.execute("UPDATE SCRAPER SET progress =? WHERE id =?", (-1,scraper_id,))
+                cursor.execute("UPDATE scraper SET progress =? WHERE id =?", (-1,scraper_id,))
                 connection.commit()
                 close_connection_to_db(connection)
 
@@ -102,7 +114,7 @@ if reset_id == 0:
             else:
                 connection = connect_to_db()
                 cursor = connection.cursor()
-                cursor.execute("UPDATE SCRAPER SET progress =? WHERE id =?", (1,scraper_id,))
+                cursor.execute("UPDATE scraper SET progress =? WHERE id =?", (1,scraper_id,))
                 connection.commit()
                 close_connection_to_db(connection)
 
@@ -151,7 +163,7 @@ if reset_id == 0:
 
                             connection = connect_to_db()
                             cursor = connection.cursor()
-                            sql = 'INSERT INTO SEARCH_RESULT(study_id, query_id, scraper_id, ip, search_engine, position, url, main_url, timestamp, date) values(?,?,?,?,?,?,?,?,?,?)'
+                            sql = 'INSERT INTO search_result(study_id, query_id, scraper_id, ip, search_engine, position, url, main_url, timestamp, date) values(?,?,?,?,?,?,?,?,?,?)'
                             data = (study_id, query_id, scraper_id, ip, search_engine, position, url, main_url, timestamp, today)
                             cursor.execute(sql, data)
                             connection.commit()
@@ -160,15 +172,16 @@ if reset_id == 0:
 
                             connection = connect_to_db()
                             cursor = connection.cursor()
-                            sql = 'INSERT INTO SOURCE(result_id, scraper_id, progress, date) values(?,?,?,?)'
+                            sql = 'INSERT INTO source(result_id, scraper_id, progress, date) values(?,?,?,?)'
                             data = (result_id, scraper_id, 0, today)
                             cursor.execute(sql, data)
                             connection.commit()
                             close_connection_to_db(connection)
-        except:
+        except Exception as e:
+            print(str(e))
             connection = connect_to_db()
             cursor = connection.cursor()
-            cursor.execute("UPDATE SCRAPER SET progress =? WHERE id =?", (-1,scraper_id,))
+            cursor.execute("UPDATE scraper SET progress =? WHERE id =?", (-1,scraper_id,))
             connection.commit()
             close_connection_to_db(connection)
 

@@ -1,4 +1,14 @@
-from lib.sources import *
+import os
+import sys
+
+current_path = os.path.abspath(__file__)
+script_path = os.path.dirname(current_path)
+project_path = os.path.dirname(script_path)
+
+if project_path not in sys.path:
+    sys.path.insert(0, project_path) 
+
+from libs.sources import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -11,7 +21,6 @@ from bs4 import BeautifulSoup
 import re
 
 import random
-
 def run(query, limit, headless=True):
 
     """
@@ -103,7 +112,7 @@ def run(query, limit, headless=True):
 
                 if result_url != "N/A" and "http" in result_url:
 
-                    get_search_results.append([result_url])                    
+                    get_search_results.append([result_url])                
 
                
 
@@ -290,8 +299,6 @@ def run(query, limit, headless=True):
         else:
             search_results = -1
             driver.quit()
-            return search_results  
-
 
     except Exception as e:
         print(str(e))

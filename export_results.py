@@ -1,6 +1,6 @@
 import pandas as pd
 
-from db import *
+from libs.db import *
 
 file_name = False
 while not file_name:

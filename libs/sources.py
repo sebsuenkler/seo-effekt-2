@@ -1,14 +1,17 @@
 import os
+import sys
 import inspect
 
 from pathlib import Path
 
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+current_path = os.path.abspath(__file__)
+script_path = os.path.dirname(current_path)
+project_path = os.path.dirname(script_path)
 
-parentdir = os.path.dirname(currentdir)
+if project_path not in sys.path:
+    sys.path.insert(0, project_path) 
 
-
-ext_path = parentdir+"/i_care_about_cookies_unpacked"
+ext_path = project_path+"/i_care_about_cookies_unpacked"
 
 from seleniumbase import Driver
 
@@ -16,9 +19,6 @@ import time
 
 
 import time
-
-import os
-current_path = os.path.abspath(os.getcwd())
 
 import base64
 

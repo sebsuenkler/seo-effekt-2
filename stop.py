@@ -4,8 +4,8 @@ import datetime
 
 import time
 
-from db import *
-from log import *
+from libs.db import *
+from libs.log import *
 
 timestamp = datetime.datetime.now()
 timestamp = timestamp.strftime("%d-%m-%Y, %H:%M:%S")
@@ -17,12 +17,6 @@ import psutil
 for proc in psutil.process_iter(attrs=['pid', 'name']):
 
     if 'python' in proc.info['name']:
-
-        try:
-            if "main.py" in proc.cmdline():
-                proc.kill()
-        except:
-            pass
 
         try:
             if "job_classifier.py" in proc.cmdline():
@@ -82,12 +76,6 @@ time.sleep(30)
 
 for proc in psutil.process_iter(attrs=['pid', 'name']):
     if 'python' in proc.info['name']:
-
-        try:
-            if "main.py" in proc.cmdline():
-                proc.kill()
-        except:
-            pass
 
         try:
             if "job_classifier.py" in proc.cmdline():
