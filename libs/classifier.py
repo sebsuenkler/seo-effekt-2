@@ -611,6 +611,8 @@ def classify_result(code, url, main, query, result_id, scorer):
 
             # Parse content
             soup = BeautifulSoup(code, 'lxml')
+
+            print(f"Beginne die Klassifizierung von: {url}")
             
             # Collect all indicators
             indicators = {}
@@ -698,6 +700,10 @@ def classify_result(code, url, main, query, result_id, scorer):
             classification_score = f"{score_results['total_score']}"
             
             classification_result = scorer.get_classification(score_results['total_score'])
+            
+            print(f"Klassifizierung von {url} abgeschlossen.")
+            print(f"SEO-Score: {classification_score}")
+            print(f"SEO-Ergebnis: {classification_result}")
 
             for key, value in indicators.items():
 

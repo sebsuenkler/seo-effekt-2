@@ -37,6 +37,8 @@ if __name__ == '__main__':
 
     write_to_log(timestamp, "Job_Scraper started")
 
+    print(f"Job_Scraper started at {timestamp}")
+
     try:
         while True:
             time.sleep(2)

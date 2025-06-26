@@ -39,6 +39,8 @@ if __name__ == '__main__':
     timestamp = timestamp.strftime("%d-%m-%Y, %H:%M:%S")
     write_to_log(timestamp, "Job_Reset_Scraper started")
 
+    print(f"Job_Reset_Scraper started at {timestamp}")
+
     try:
         while True:
             time.sleep(2)

@@ -37,6 +37,8 @@ if __name__ == '__main__':
 
     write_to_log(timestamp, "Job_Source started")
 
+    print(f"Job_Source started at {timestamp}")
+
 
     try:
         while True:
