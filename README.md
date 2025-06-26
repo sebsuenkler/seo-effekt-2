@@ -22,7 +22,7 @@ pip install -r requirements.txt
 - Bing_de_Top10: Scraper to collect the top-10 search results from the German verson of Bing
 
 #### Setup
-- RUN /install/python setup.db.py : To create the database for the tool
+- RUN /install/python setup.db.py : To create the SQLite database for the tool
 - RUN /install/ setup_scrapers.py : To install the necessary libraries and chromedriver to run the scrapers
 
 #### Usage
