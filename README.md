@@ -2,6 +2,8 @@
 
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) <!-- Optional: Add more relevant badges -->
 
+[![DOI](https://zenodo.org/badge/1008207739.svg)](https://doi.org/10.5281/zenodo.17224644)
+
 This repository contains the software developed for the "SEO-Effekt 2" research project. The tool allows for scraping search engine results, analyzing web pages for SEO characteristics, and classifying their optimization level based on a detailed scoring model.
 
 **Part of the DFG-funded research project "SEO-Effekt 2: Multiperspektivische Betrachtung des Einflusses der Suchmaschinenoptimierung auf die Qualität von Suchergebnissen und das Verhalten der NutzerInnen."** (Grant No. 417552432)
