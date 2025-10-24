@@ -1,0 +1,35 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: SEO-Effekt 2 SEO Analysis and Scoring Tool
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Sebastian
+    family-names: Sünkler
+    email: sebastian.suenkler@dmi-haw-hamburg.de
+    affiliation: HAW Hamburg
+    orcid: 'https://orcid.org/0000-0001-9848-1137'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.17224644
+repository-code: 'https://github.com/rat-software'
+url: 'http://rat-software.org/'
+abstract: >-
+  This repository contains the software developed for the
+  "SEO-Effekt 2" research project. The tool allows for
+  scraping search engine results, analyzing web pages for
+  SEO characteristics, and classifying their optimization
+  level based on a detailed scoring model.
+keywords:
+  - search engines
+  - scraper
+  - information retrieval
+  - information retrieval evaluation
+  - search engine data
+  - SEO
+  - search engine optimization
+license: GPL-3.0

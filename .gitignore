@@ -1,0 +1,9 @@
+seo_effect.db-wal
+seo_effect.db
+seo_effect.db-shm
+*__pycache__*
+*.exe
+*.log
+downloaded_files/
+__pycache__
+venv/
